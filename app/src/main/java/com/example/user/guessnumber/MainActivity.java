@@ -20,8 +20,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private EditText editText;
-//    private Button button;
     private ListView lv;
     private ArrayList<String> items;
     private ArrayAdapter<String> adeptet;
@@ -53,45 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 //        init();
 
-//        editText = (EditText) findViewById(R.id.editText);
-//        button = (Button) findViewById(R.id.button);
-//        lv = (ListView) findViewById(R.id.listView);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (isMatch()) {
-//                    xAxB = match();
-//                    items.add(editText.getText().toString() + "  ...  " + xAxB);
-//                    editText.setText("");
-//                    lv.setAdapter(adeptet);
-//
-//                    if (xAxB.equals("4A0B")) {
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-//                        builder.setTitle("Congratulation !")
-//                                .setPositiveButton(R.string.action_newGame, new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        init();
-//                                    }
-//                                })
-//                                .setMessage("You have guessed the number.")
-//                                .show();
-//                    }
-//
-//                } else {
-//                    Toast.makeText(v.getContext(), "check to make sense", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        // for 4 num.
-//        input.setText("");
-//        random();
-//
-//        // for ListView
-//        items = new ArrayList<String>();
-//        adeptet = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items);
-//        lv.setAdapter(adeptet);
+
     }
 
     private void init(){
@@ -120,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 init();
                 break;
             case R.id.action_rule:
-//                FragmentManager fragmentManager = getFragmentManager();
-//                SettingDialogFragment newFragment = new SettingDialogFragment();
-//                Bundle args = new Bundle();
+
                 int mIndex = 0;
                 args.putInt("index", mIndex);
                 newFragment.setArguments(args);
@@ -142,10 +100,7 @@ public class MainActivity extends AppCompatActivity {
 //*/
                 break;
             case R.id.action_showAnswer:
-//                mIndex = 2;
-//                args.putInt("index", mIndex);
-//                newFragment.setArguments(args);
-//                newFragment.show(fragmentManager,"dialog");
+
                 String tmpS = "";
                 for(int i=0;i<4;i++){
                     tmpS += GuessFragment.answer.get(i) ;
