@@ -34,7 +34,7 @@
 
         <TableLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="4"
             android:layout_gravity="top"
             android:minWidth="180dp"
@@ -49,10 +49,10 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageButtonBack"
                     android:layout_column="0"
-                    android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+                    android:src="@drawable/image_button_back"
                     android:background="@drawable/mybutton_background1"
                     android:scaleType="centerInside"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
                     android:clickable="true" />
 
@@ -62,9 +62,9 @@
                     android:id="@+id/imageButtonInput"
                     android:layout_column="1"
                     android:background="@drawable/mybutton_background1"
-                    android:src="@drawable/ic_keyboard_return_white_24dp"
+                    android:src="@drawable/image_button_return"
                     android:scaleType="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
                     android:clickable="true" />
 
@@ -86,7 +86,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
 
                 <TextView
@@ -100,7 +100,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
             </TableRow>
 
@@ -119,7 +119,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
 
                 <TextView
@@ -133,7 +133,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
             </TableRow>
 
@@ -152,7 +152,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
 
                 <TextView
@@ -166,7 +166,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
             </TableRow>
 
@@ -185,7 +185,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
 
                 <TextView
@@ -199,7 +199,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
             </TableRow>
 
@@ -218,7 +218,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
 
                 <TextView
@@ -232,7 +232,7 @@
                     android:textColor="#fff"
                     android:textSize="20dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp" />
 
             </TableRow>

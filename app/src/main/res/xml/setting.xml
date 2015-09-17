@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/modes">
+        <ListPreference
+            android:dialogTitle="@string/modes"
+            android:entries="@array/modes_inputsize_array"
+            android:entryValues="@array/modes_inputsize_array_value"
+            android:key="modes_inputsize"
+            android:title="@string/modes_inputsize"
+            android:summary="@string/modes_inputsize_summary"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/answer">
+        <EditTextPreference
+            android:dialogTitle="Set the answer."
+            android:key="setAnswer"
+            android:title="@string/answer_set"/>
+        <Preference
+            android:key="showAnswer"
+            android:title="@string/answer_show"/>
+    </PreferenceCategory>
+    <Preference
+        android:key="goplaying"
+        android:title="Go playing."/>
+</PreferenceScreen>

@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,26 +28,16 @@ public class GuessFragment extends Fragment {
     private ArrayList<String> items;
     private ArrayAdapter<String> adeptet;
 
-    private int inputSize = 4;
+    public static int inputSize = 4;
     public static ArrayList<Integer> answer;
     private String xAxB;
     private int tmp;
 
-    public GuessFragment() {
-        // Required empty public constructor
-    }
-
-    public static GuessFragment newInstance(){
+    public static GuessFragment newInstance(int index){
         GuessFragment guessFragment = new GuessFragment();
+        if (index==0) random();
+
         return guessFragment;
-    }
-
-    @Override
-    public void onCreate(Bundle saveInstanceState){
-        super.onCreate(saveInstanceState);
-
-
-
     }
 
     @Override
@@ -54,42 +45,32 @@ public class GuessFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_guess, container, false);
 
-//        answer = getArguments().getIntegerArrayList("answer");
-//        inputSize = getArguments().getInt("inputsize");
-
         myfindViewById();
-        // for 4 num.
         input.setText("");
-        random();
+        input.setHint("Input " + inputSize + " different digits.");
 
         // for ListView
         items = new ArrayList<String>();
-// or       adeptet = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,items);
-        adeptet = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,items);
+        adeptet = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,items);//or  getActivity()
         lv.setAdapter(adeptet);
-
-//        Bundle bundle = new Bundle();
-//        bundle.putIntegerArrayList("answer",answer);
-//        this.setArguments(bundle);
 
         return view;
     }
 
-    private void init() {
+    public void init() {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.main_container, GuessFragment.newInstance())
+                .replace(R.id.main_container, GuessFragment.newInstance(0))
                 .addToBackStack(null)
                 .commit();
     }
 
-    private void random() {
+    public static void random() {
         int tmp;
         ArrayList<Integer> randomList = new ArrayList<>();
 
         for (int i = 0; i < inputSize; i++) {
-            do
-            {
+            do {
                 tmp = (int) (Math.random() * 10);
             } while (randomList.contains(tmp));
             randomList.add(tmp);
@@ -118,12 +99,11 @@ public class GuessFragment extends Fragment {
         return a + "A" + b + "B" ;
     }
 
-    //check input has make sense
-    private Boolean isMatch(){
-        String tmpS = input.getText().toString();
-        if (tmpS.length()!=4) return false;
+    //check input has make sense (include inputsize and different digits)
+    public static Boolean isMatch(String tmpS){
+        if (tmpS.length() != inputSize) return false;
         for (int i = 0; i < inputSize; i++) {
-            if (tmpS.lastIndexOf(input.getText().toString().substring(i, i + 1)) != i ) return false;
+            if (tmpS.lastIndexOf(tmpS.substring(i, i + 1)) != i ) return false;
         }
 
         return true;
@@ -139,13 +119,14 @@ public class GuessFragment extends Fragment {
 
                     break;
                 case R.id.imageButtonInput:
-                    if (isMatch()) {
+                    String tmpS = input.getText().toString();
+                    if (isMatch(tmpS)) {
                         xAxB = match();
                         items.add(input.getText().toString() + "  ...  " + xAxB);
                         input.setText("");
                         lv.setAdapter(adeptet);
 
-                        if (xAxB.equals("4A0B")) {
+                        if (xAxB.equals(inputSize+"A0B")) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                             builder.setTitle("Congratulation !")
                                     .setPositiveButton(R.string.action_newGame, new DialogInterface.OnClickListener() {
@@ -179,17 +160,21 @@ public class GuessFragment extends Fragment {
                     input.setText("");
                     break;
                 case R.id.imageButtonInput:
-
                     break;
                 default:
                     v.setSelected(v.isSelected() ? false : true);
-
+//                    v.slistener
             }
-
             return true;
         }
     };
 
+//    private View.OnDragListener onDragListener = new View.OnDragListener() {
+//        @Override
+//        public boolean onDrag(View v, DragEvent event) {
+//            return true;
+//        }
+//    };
 
     private void myfindViewById(){
         input = (TextView) view.findViewById(R.id.textInput);
@@ -215,6 +200,7 @@ public class GuessFragment extends Fragment {
         tv0.setOnClickListener(onClickListener);
         tv0.setLongClickable(true);
         tv0.setOnLongClickListener(onLongClickListener);
+//        tv0.setOnDragListener(onDragListener);
         tv1.setOnClickListener(onClickListener);
         tv1.setLongClickable(true);
         tv1.setOnLongClickListener(onLongClickListener);
