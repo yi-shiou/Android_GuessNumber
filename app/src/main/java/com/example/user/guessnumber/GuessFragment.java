@@ -135,18 +135,28 @@ public class GuessFragment extends Fragment {
                         lv.setAdapter(adeptet);
                         count++;
                         if (xAxB.equals(inputSize+"A0B")) {
+
+                            // save the number of ending game
+                            int i = prefs.getInt(KeyCollectiot.KEY_ENDING, 0);
+                            prefs.edit().putInt(KeyCollectiot.KEY_ENDING, (i+1)).commit();
+
+                            float total = prefs.getFloat(KeyCollectiot.KEY_AVERAGE_SCORE, Integer.MAX_VALUE);
+                            total = (total*i + (float)count)/(i+1);
+                            prefs.edit().putFloat(KeyCollectiot.KEY_AVERAGE_SCORE, total).commit();
+
                             if(count < prefs.getInt(KeyCollectiot.KEY_HIGHEST_SCORE, Integer.MAX_VALUE)) {
                                 prefs.edit().putInt(KeyCollectiot.KEY_HIGHEST_SCORE, count).commit();
                             }
+                            count = 0;
                             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                            builder.setTitle("Congratulation !")
+                            builder.setTitle(getString(R.string.congratulation))
                                     .setPositiveButton(R.string.action_newGame, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             init();
                                         }
                                     })
-                                    .setMessage("You have guessed the number.")
+                                    .setMessage(getString(R.string.good))
                                     .show();
                         }
 

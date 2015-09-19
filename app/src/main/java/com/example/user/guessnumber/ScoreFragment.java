@@ -17,7 +17,9 @@ public class ScoreFragment extends Fragment {
 
     private View view;
     private TextView score;
-    private TextView tv0;
+    private TextView highest_detail;
+    private TextView average_detail;
+    private TextView average_score;
     private SharedPreferences prefs;
 
     public static ScoreFragment newInstance() {
@@ -37,6 +39,12 @@ public class ScoreFragment extends Fragment {
             score.setText(getString(R.string.none));
         }
 
+        if(prefs.getFloat(KeyCollectiot.KEY_AVERAGE_SCORE, Integer.MAX_VALUE)!=Integer.MAX_VALUE) {
+            average_score.setText(String.valueOf(prefs.getFloat(KeyCollectiot.KEY_AVERAGE_SCORE, Integer.MAX_VALUE)));
+        } else {
+            average_score.setText(getString(R.string.none));
+        }
+
         return view;
     }
 
@@ -44,11 +52,15 @@ public class ScoreFragment extends Fragment {
 
     private void myfindViewById() {
         score = (TextView)view.findViewById(R.id.high_score);
-        tv0 = (TextView)view.findViewById(R.id.textView2);
+        highest_detail = (TextView)view.findViewById(R.id.textView2);
+        average_detail = (TextView)view.findViewById(R.id.textView10);
+        average_score = (TextView)view.findViewById(R.id.textView11);
 
         final float scale = getResources().getDisplayMetrics().density;
-        int size = (int)(7 * scale);
-        tv0.setTextSize(size);
+        int size = (int)(8 * scale);
+        highest_detail.setTextSize(size);
+        average_detail.setTextSize(size);
+        average_score.setTextSize(size);
         score.setTextSize(size);
     }
 

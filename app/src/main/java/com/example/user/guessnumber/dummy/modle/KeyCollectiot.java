@@ -10,4 +10,6 @@ public class KeyCollectiot {
     public static final String KEY_SHOWANSWER="showAnswer";
     public static final String KEY_GOPLAYING="goplaying";
     public static final String KEY_HIGHEST_SCORE="highest_score";
+    public static final String KEY_AVERAGE_SCORE="average_score";
+    public static final String KEY_ENDING="ending_game";
 }
