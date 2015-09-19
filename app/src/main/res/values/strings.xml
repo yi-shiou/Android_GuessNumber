@@ -3,12 +3,16 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_newGame">New Game</string>
     <string name="action_rule">Rule</string>
+    <string name="action_score">Score</string>
     <string name="action_settings">Settings</string>
     <string name="action_showAnswer">Show Answer</string>
     <string name="action_quit">Quit</string>
     <string name="Inpute_hint">Input four different digits.</string>
     <string name="sure">OK.</string>
     <string name="quit">Quit</string>
+    <string name="congratulation">Congratulation !</string>
+    <string name="good">You have guessed the number.</string>
+
 <!--in Rule-->
     <string name="gameRule">Rule of the Game.</string>
     <string name="gameRuleDetal">Input four different digits.\n
@@ -20,6 +24,12 @@
         Inpute : 7 6 5 4 ,then you have 1 A 0 B\n
         Inpute : 4 5 6 7 ,then you have 0 A 1 B\n
         Inpute : 1 4 6 7 ,then you have 1 A 1 B</string>
+
+<!--in Score-->
+    <string name="highest">The highest score is:</string>
+    <string name="average">The average score is:</string>
+    <string name="none">None</string>
+
 <!--in Setting-->
     <string name="modes">Modes</string>
     <string name="modes_inputsize">Input size</string>

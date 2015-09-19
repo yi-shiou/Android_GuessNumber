@@ -4,9 +4,9 @@ package com.example.user.guessnumber;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.user.guessnumber.dummy.modle.KeyCollectiot;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,8 @@ public class GuessFragment extends Fragment {
     private ListView lv;
     private ArrayList<String> items;
     private ArrayAdapter<String> adeptet;
+    private int count = 0;
+    private SharedPreferences prefs;
 
     public static int inputSize = 4;
     public static ArrayList<Integer> answer;
@@ -40,10 +44,14 @@ public class GuessFragment extends Fragment {
         return guessFragment;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_guess, container, false);
+
+        prefs = getActivity().getPreferences(1);
 
         myfindViewById();
         input.setText("");
@@ -125,17 +133,30 @@ public class GuessFragment extends Fragment {
                         items.add(input.getText().toString() + "  ...  " + xAxB);
                         input.setText("");
                         lv.setAdapter(adeptet);
-
+                        count++;
                         if (xAxB.equals(inputSize+"A0B")) {
+
+                            // save the number of ending game
+                            int ending_number = prefs.getInt(KeyCollectiot.KEY_ENDING, 0);
+                            prefs.edit().putInt(KeyCollectiot.KEY_ENDING, (ending_number+1)).commit();
+
+                            float total = prefs.getFloat(KeyCollectiot.KEY_AVERAGE_SCORE, Integer.MAX_VALUE);
+                            total = (total*ending_number + (float)count)/(ending_number+1);
+                            prefs.edit().putFloat(KeyCollectiot.KEY_AVERAGE_SCORE, total).commit();
+
+                            if(count < prefs.getInt(KeyCollectiot.KEY_HIGHEST_SCORE, Integer.MAX_VALUE)) {
+                                prefs.edit().putInt(KeyCollectiot.KEY_HIGHEST_SCORE, count).commit();
+                            }
+                            count = 0;
                             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                            builder.setTitle("Congratulation !")
+                            builder.setTitle(getString(R.string.congratulation))
                                     .setPositiveButton(R.string.action_newGame, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             init();
                                         }
                                     })
-                                    .setMessage("You have guessed the number.")
+                                    .setMessage(getString(R.string.good))
                                     .show();
                         }
 
