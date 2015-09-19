@@ -26,10 +26,20 @@ public class MainActivity extends AppCompatActivity {
 //        guessFragment.setArguments(bundle);
         fragmentManager.beginTransaction()
                 .replace(R.id.main_container, guessFragment)
-                .addToBackStack(null)
                 .commit();
 //        init();
     }
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_newGame:
                 fragmentManager.beginTransaction()
                         .replace(R.id.main_container, GuessFragment.newInstance(0))
-                        .addToBackStack(null)
                         .commit();
                 break;
             case R.id.action_rule:

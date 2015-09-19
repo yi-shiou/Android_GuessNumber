@@ -41,6 +41,7 @@ public class ScoreFragment extends Fragment {
     }
 
 
+
     private void myfindViewById() {
         score = (TextView)view.findViewById(R.id.high_score);
         tv0 = (TextView)view.findViewById(R.id.textView2);
