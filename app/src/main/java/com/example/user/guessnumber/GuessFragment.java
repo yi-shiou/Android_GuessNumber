@@ -137,11 +137,11 @@ public class GuessFragment extends Fragment {
                         if (xAxB.equals(inputSize+"A0B")) {
 
                             // save the number of ending game
-                            int i = prefs.getInt(KeyCollectiot.KEY_ENDING, 0);
-                            prefs.edit().putInt(KeyCollectiot.KEY_ENDING, (i+1)).commit();
+                            int ending_number = prefs.getInt(KeyCollectiot.KEY_ENDING, 0);
+                            prefs.edit().putInt(KeyCollectiot.KEY_ENDING, (ending_number+1)).commit();
 
                             float total = prefs.getFloat(KeyCollectiot.KEY_AVERAGE_SCORE, Integer.MAX_VALUE);
-                            total = (total*i + (float)count)/(i+1);
+                            total = (total*ending_number + (float)count)/(ending_number+1);
                             prefs.edit().putFloat(KeyCollectiot.KEY_AVERAGE_SCORE, total).commit();
 
                             if(count < prefs.getInt(KeyCollectiot.KEY_HIGHEST_SCORE, Integer.MAX_VALUE)) {
