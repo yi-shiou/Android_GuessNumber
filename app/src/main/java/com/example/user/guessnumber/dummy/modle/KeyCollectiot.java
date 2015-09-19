@@ -9,4 +9,5 @@ public class KeyCollectiot {
     public static final String KEY_SETANSWER="setAnswer";
     public static final String KEY_SHOWANSWER="showAnswer";
     public static final String KEY_GOPLAYING="goplaying";
+    public static final String KEY_HIGHEST_SCORE="highest_score";
 }

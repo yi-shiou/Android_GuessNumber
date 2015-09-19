@@ -1,16 +1,10 @@
 package com.example.user.guessnumber;
 
 import android.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -65,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
                 newFragment.setArguments(args);
                 newFragment.show(fragmentManager, "dialog");
                 break;
+
+            case R.id.action_score:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.main_container, ScoreFragment.newInstance())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+
             case R.id.action_settings:
 /*/
                 mIndex = 1;
