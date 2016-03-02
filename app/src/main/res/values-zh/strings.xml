@@ -1,0 +1,53 @@
+﻿<resources>
+    <string name="app_name">猜數字</string>
+    <string name="action_newGame">另起新局</string>
+    <string name="action_rule">基本規則</string>
+    <string name="action_settings">設定</string>
+    <string name="action_showAnswer">偷看答案</string>
+    <string name="action_quit">離開遊戲</string>
+    <string name="Inpute_hint">輸入相異四位數字.</string>
+    <string name="Inpute_hint_input">輸入</string>
+    <string name="Inpute_hint_different">位相異數字</string>
+    <string name="Inpute_hint_digits">位數字.</string>
+    <string name="sure">OK.</string>
+    <string name="quit">離開</string>
+<!--in Rule-->
+    <string name="gameRule">基本規則</string>
+    <string name="gameRuleDetal">輸入相異四位數字.\n
+        如果猜到數字而且位置相同,可的到 A. \n
+        如果位置不同則得到 B. </string>
+    <string name="gameExample">例如.</string>
+    <string name="gameExampleDetal">假設答案是 1 2 3 4\n
+        你猜 : 7 6 5 4 ,就得到 1 A 0 B\n
+        你猜 : 4 5 6 7 ,就得到 0 A 1 B\n
+        你猜 : 1 4 6 7 ,就得到 1 A 1 B</string>
+	如果猜到 4 A 即可獲得勝利
+<!--in Setting-->
+    <string name="modes">模式</string>
+    <string name="modes_inputsize">數字位數</string>
+    <string name="modes_inputsize_summary">預設為四.</string>
+    <string name="modes_different">數字可以相同</string>
+    <string name="modes_different_on">On</string>
+    <string name="modes_different_off">Off</string>
+    <string-array name="modes_inputsize_array">
+        <item>預設(4)</item>
+        <item>困難(5)</item>
+        <item>進階(6)</item>
+    </string-array>
+    <string-array name="modes_inputsize_array_value">
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string name="answer">答案</string>
+    <string name="answer_set">自訂數字</string>
+    <string name="answer_show">偷看答案</string>
+    <string name="go_palying">開始挑戰</string>
+    <!--  Dialog-->
+    <string name="Dialog_makeSense">請確認符合要求</string>
+    <string name="Dialog_changed">答案已變更</string>
+    <string name="Dialog_Congratulation">恭喜您 !</string>
+    <string name="Dialog_guessed">你猜到答案了.</string>
+
+
+</resources>

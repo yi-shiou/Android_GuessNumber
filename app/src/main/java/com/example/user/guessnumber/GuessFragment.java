@@ -29,13 +29,14 @@ public class GuessFragment extends Fragment {
     private ArrayAdapter<String> adeptet;
 
     public static int inputSize = 4;
+    public static boolean same_digit = false;
     public static ArrayList<Integer> answer;
     private String xAxB;
     private int tmp;
 
     public static GuessFragment newInstance(int index){
         GuessFragment guessFragment = new GuessFragment();
-        if (index==0) random();
+        if (index==0) random(same_digit);
 
         return guessFragment;
     }
@@ -47,8 +48,8 @@ public class GuessFragment extends Fragment {
 
         myfindViewById();
         input.setText("");
-        input.setHint("Input " + inputSize + " different digits.");
-
+        if(!same_digit) input.setHint(getString(R.string.Inpute_hint_input) + inputSize + getString(R.string.Inpute_hint_different));
+        else  input.setHint(getString(R.string.Inpute_hint_input) + inputSize + getString(R.string.Inpute_hint_digits));
         // for ListView
         items = new ArrayList<String>();
         adeptet = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,items);//or  getActivity()
@@ -65,32 +66,45 @@ public class GuessFragment extends Fragment {
                 .commit();
     }
 
-    public static void random() {
+    public static void random(boolean sameDigit) {
         int tmp;
         ArrayList<Integer> randomList = new ArrayList<>();
 
-        for (int i = 0; i < inputSize; i++) {
-            do {
+        if (!sameDigit){
+            for (int i = 0; i < inputSize; i++) {
+                do {
+                    tmp = (int) (Math.random() * 10);
+                } while (randomList.contains(tmp));
+                randomList.add(tmp);
+            }
+        }else {
+            for (int i = 0; i < inputSize; i++) {
                 tmp = (int) (Math.random() * 10);
-            } while (randomList.contains(tmp));
-            randomList.add(tmp);
+                randomList.add(tmp);
+            }
         }
         answer = randomList;
     }
 
     private String match(){
-        int a = 0,b = 0;
-        ArrayList<Integer> guessList= new ArrayList<Integer>();
-        for (int i = 0; i < inputSize; i++)
-            guessList.add(Integer.parseInt(input.getText().toString().substring(i, i + 1)));
-
-        //match i is index of guessList
-        for (int i = 0; i < inputSize; i++) {
-            // j is index of answer List
-            for (int j = 0; j < inputSize; j++){
-                if(guessList.get(i) == answer.get(j)) {
-                    if (i == j) a++;
-                    else b++;
+        int a = 0,b = 0,tmpi;
+        ArrayList<Integer> guessList= new ArrayList<Integer>(),indexOfMachedNum = new ArrayList<Integer>();
+        for (int i = 0; i < inputSize; i++){
+            tmpi = Integer.parseInt(input.getText().toString().substring(i, i + 1));
+            guessList.add(tmpi);
+            if (tmpi == answer.get(i)) {
+                a++;
+                indexOfMachedNum.add(i);
+            }
+        }
+        //  j   is index of guessList
+        for (int j = 0; j < inputSize ; j++){
+            for (int i = 1; i < inputSize; i++){// (i+j)%4  is index of answer
+                if (indexOfMachedNum.contains((i+j)%4)) continue;
+                if(guessList.get(j) == answer.get((i+j)%4)) {
+                    b++;
+                    indexOfMachedNum.add((i+j)%4);
+                    break;
                 }
             }
         }
@@ -98,15 +112,20 @@ public class GuessFragment extends Fragment {
         xAxB = a + "A" + b + "B";
         return a + "A" + b + "B" ;
     }
-
+    public static Boolean isNumbers(String tmpS){
+        String tmp;
+        for (int i = 0; i < inputSize; i++) {
+            for (int n =0; n <10;n++){
+                tmp = "" + n;
+                if (tmpS.substring(i, i + 1)== tmp) return false;
+            }
+        }
+        return true;
+    }
     //check input has make sense (include inputsize and different digits)
     public static Boolean isMatch(String tmpS){
         if (tmpS.length() != inputSize) return false;
-        for (int i = 0; i < inputSize; i++) {
-            if (tmpS.lastIndexOf(tmpS.substring(i, i + 1)) != i ) return false;
-        }
-
-        return true;
+        return isNumbers(tmpS);
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -128,19 +147,19 @@ public class GuessFragment extends Fragment {
 
                         if (xAxB.equals(inputSize+"A0B")) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                            builder.setTitle("Congratulation !")
+                            builder.setTitle(getString(R.string.Dialog_Congratulation))
                                     .setPositiveButton(R.string.action_newGame, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
                                             init();
                                         }
                                     })
-                                    .setMessage("You have guessed the number.")
+                                    .setMessage(R.string.Dialog_guessed)
                                     .show();
                         }
 
                     } else {
-                        Toast.makeText(v.getContext(), "check to make sense", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), getString(R.string.Dialog_makeSense), Toast.LENGTH_SHORT).show();
                     }
 
                     break;

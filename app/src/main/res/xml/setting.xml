@@ -3,16 +3,22 @@
 
     <PreferenceCategory android:title="@string/modes">
         <ListPreference
-            android:dialogTitle="@string/modes"
+            android:dialogTitle="@string/modes_inputsize"
             android:entries="@array/modes_inputsize_array"
             android:entryValues="@array/modes_inputsize_array_value"
             android:key="modes_inputsize"
             android:title="@string/modes_inputsize"
             android:summary="@string/modes_inputsize_summary"/>
+        <SwitchPreference
+            android:title="@string/modes_different"
+            android:key="modes_different"
+            android:defaultValue="false"/>
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/answer">
         <EditTextPreference
             android:dialogTitle="Set the answer."
+            android:inputType="number"
             android:key="setAnswer"
             android:title="@string/answer_set"/>
         <Preference
@@ -21,5 +27,5 @@
     </PreferenceCategory>
     <Preference
         android:key="goplaying"
-        android:title="Go playing."/>
+        android:title="@string/go_palying"/>
 </PreferenceScreen>

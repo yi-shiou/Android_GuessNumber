@@ -6,6 +6,7 @@ package com.example.user.guessnumber.dummy.modle;
 public class KeyCollectiot {
     public static final String KEY_INPUT_SIZE="inputSize";
     public static final String KEY_MODES_INPUTSIZE="modes_inputsize";
+    public static final String KEY_MODES_DIFFERENT="modes_different";
     public static final String KEY_SETANSWER="setAnswer";
     public static final String KEY_SHOWANSWER="showAnswer";
     public static final String KEY_GOPLAYING="goplaying";

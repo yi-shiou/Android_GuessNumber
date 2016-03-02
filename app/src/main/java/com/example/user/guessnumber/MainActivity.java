@@ -22,19 +22,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("inputsize", inputSizeeee);
-//        bundle.putString("input", input.getText().toString());
-//
-//        random();
-//        bundle.putIntegerArrayList("answer", answer);
         GuessFragment guessFragment = GuessFragment.newInstance(0);
-//        guessFragment.setArguments(bundle);
         fragmentManager.beginTransaction()
                 .replace(R.id.main_container, guessFragment)
                 .addToBackStack(null)
                 .commit();
-//        init();
     }
 
     @Override
@@ -43,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    //--------------for menu----------------------//
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -66,17 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 newFragment.show(fragmentManager, "dialog");
                 break;
             case R.id.action_settings:
-/*/
-                mIndex = 1;
-                args.putInt("index", mIndex);
-                newFragment.setArguments(args);
-                newFragment.show(fragmentManager,"dialog");
-//*/
                  fragmentManager.beginTransaction()
                     .replace(R.id.main_container, SettingFragment.newInstance(0))
                     .addToBackStack(null)
                     .commit();
-//*/
                 break;
             case R.id.action_quit:
                 finish();

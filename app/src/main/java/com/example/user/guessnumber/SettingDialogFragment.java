@@ -90,7 +90,7 @@ public class SettingDialogFragment extends DialogFragment {
         }
     };
 
-    public void mySetInflater(View v){
+/*    public void mySetInflater(View v){
 
 
         ArrayList<String> items = new ArrayList<>();
@@ -106,7 +106,7 @@ public class SettingDialogFragment extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
-                        GuessFragment.random();
+                        GuessFragment.random(GuessFragment.different_digit);
                         break;
                     case 1:
                         isaddEditText = true;
@@ -123,7 +123,7 @@ public class SettingDialogFragment extends DialogFragment {
         });
 
 
-    }
+    }*/
 
 
 //    public class LiseAdapter extends BaseAdapter {
