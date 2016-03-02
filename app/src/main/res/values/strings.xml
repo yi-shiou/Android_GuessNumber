@@ -5,10 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="action_showAnswer">Show Answer</string>
     <string name="action_quit">Quit</string>
-    <string name="Inpute_hint">Input four different digits.</string>
-    <string name="Inpute_hint_input">Input</string>
-    <string name="Inpute_hint_different">different digits.</string>
-    <string name="Inpute_hint_digits">digits.</string>
+    <string name="Input_hint">Input four different digits.</string>
+    <string name="Input_hint_input">Input</string>
+    <string name="Input_hint_different">different digits.</string>
+    <string name="Input_hint_digits">digits.</string>
     <string name="sure">OK.</string>
     <string name="quit">Quit</string>
 <!--in Rule-->

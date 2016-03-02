@@ -17,7 +17,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/answer">
         <EditTextPreference
-            android:dialogTitle="Set the answer."
+            android:dialogTitle="@string/answer_set"
             android:inputType="number"
             android:key="setAnswer"
             android:title="@string/answer_set"/>

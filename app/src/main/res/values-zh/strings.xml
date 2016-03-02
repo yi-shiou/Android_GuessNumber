@@ -5,10 +5,10 @@
     <string name="action_settings">設定</string>
     <string name="action_showAnswer">偷看答案</string>
     <string name="action_quit">離開遊戲</string>
-    <string name="Inpute_hint">輸入相異四位數字.</string>
-    <string name="Inpute_hint_input">輸入</string>
-    <string name="Inpute_hint_different">位相異數字</string>
-    <string name="Inpute_hint_digits">位數字.</string>
+    <string name="Input_hint">輸入相異四位數字.</string>
+    <string name="Input_hint_input">輸入</string>
+    <string name="Input_hint_different">位相異數字</string>
+    <string name="Input_hint_digits">位數字.</string>
     <string name="sure">OK.</string>
     <string name="quit">離開</string>
 <!--in Rule-->

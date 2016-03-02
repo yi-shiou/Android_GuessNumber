@@ -22,7 +22,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="bottom"
-                android:hint="@string/Inpute_hint" />
+                android:hint="@string/Input_hint" />
 
             <ListView
                 android:layout_width="wrap_content"

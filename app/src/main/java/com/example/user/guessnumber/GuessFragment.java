@@ -48,8 +48,8 @@ public class GuessFragment extends Fragment {
 
         myfindViewById();
         input.setText("");
-        if(!same_digit) input.setHint(getString(R.string.Inpute_hint_input) + inputSize + getString(R.string.Inpute_hint_different));
-        else  input.setHint(getString(R.string.Inpute_hint_input) + inputSize + getString(R.string.Inpute_hint_digits));
+        if(!same_digit) input.setHint(getString(R.string.Input_hint_input) + inputSize + getString(R.string.Input_hint_different));
+        else  input.setHint(getString(R.string.Input_hint_input) + inputSize + getString(R.string.Input_hint_digits));
         // for ListView
         items = new ArrayList<String>();
         adeptet = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,items);//or  getActivity()
