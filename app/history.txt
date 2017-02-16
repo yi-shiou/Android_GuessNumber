@@ -1,4 +1,11 @@
-  Version2.2  2016 3/2
+Version2.2  2016 3/2
 
-�䴩 ���媩(zh)
-�s�W�ۦP�Ʀr�Ҧ�
+支援 中文版(zh)
+新增相同數字模式
+
+Version2.1
+
+更新設定欄位
+
+Version2
+全新介面
