@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class SettingFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
-    private SharedPreferences prefs;
+    private SharedPreferences prefs,sp;
     private Preference modes_inputsize,setAns,showAns,goplaying;
     private SwitchPreference modes_different;
 
@@ -35,8 +35,10 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PreferenceManager.setDefaultValues(getActivity(), R.xml.setting, false);
+        PreferenceManager.setDefaultValues(getActivity(), R.xml.setting, true);
         addPreferencesFromResource(R.xml.setting);
+
+        sp = getActivity().getPreferences(1);
         prefs = getPreferenceManager().getSharedPreferences();
         prefs.registerOnSharedPreferenceChangeListener(this);
 
@@ -51,8 +53,9 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
         showAns.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
+                int size = sp.getInt(KeyCollectiot.KEY_INPUT_SIZE,4);
                 String tmpS = "";
-                for(int i=0;i < GuessFragment.inputSize ;i++){
+                for(int i=0;i < size ;i++){
                     tmpS += GuessFragment.answer.get(i) ;
                 }
                 showAns.setSummary(tmpS);
@@ -65,6 +68,7 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 //init  showAns
+                setAns.setSummary("");
                 showAns.setSummary("");
                 //reyurn to game fragment
                 FragmentManager fragmentManager = getFragmentManager();
@@ -83,16 +87,17 @@ public class SettingFragment extends PreferenceFragment implements SharedPrefere
             modes_inputsize.setSummary(prefs.getString(key, "0").equals("0") ?
                     null : prefs.getString(key, "0"));
             String tmpS = (String) prefs.getString(key,""+GuessFragment.inputSize);
-            GuessFragment.inputSize = Integer.valueOf(tmpS);
-            GuessFragment.random(GuessFragment.same_digit);
+
+            int tmpI = Integer.valueOf(tmpS);
+            sp.edit().putInt(KeyCollectiot.KEY_INPUT_SIZE,tmpI).apply();
+            GuessFragment.random(sp.getInt(KeyCollectiot.KEY_INPUT_SIZE,4),sp.getBoolean(KeyCollectiot.KEY_MODES_DIFFERENT,false));
             Toast.makeText(getActivity(),getString(R.string.Dialog_changed),Toast.LENGTH_SHORT).show();
         }else if (key.equals(KeyCollectiot.KEY_MODES_DIFFERENT)){
-            //modes_different.setSummary(!GuessFragment.different_digit ? "On." : "Off.");
-            GuessFragment.same_digit = prefs.getBoolean(key,false);
+            sp.edit().putBoolean(KeyCollectiot.KEY_MODES_DIFFERENT,prefs.getBoolean(key,false)).apply();
+            GuessFragment.random(sp.getInt(KeyCollectiot.KEY_INPUT_SIZE,4),sp.getBoolean(KeyCollectiot.KEY_MODES_DIFFERENT,false));
             Toast.makeText(getActivity(),getString(R.string.Dialog_changed),Toast.LENGTH_SHORT).show();
-            GuessFragment.random(GuessFragment.same_digit);
         }else if (key.equals(KeyCollectiot.KEY_SETANSWER)){
-
+            GuessFragment.inputSize = sp.getInt(KeyCollectiot.KEY_INPUT_SIZE,4);
             String tmpS = prefs.getString(key,"");
             if (!tmpS.equals("") ){
                 if (GuessFragment.isMatch(tmpS)) {

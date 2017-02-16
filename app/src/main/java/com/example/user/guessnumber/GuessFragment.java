@@ -4,6 +4,7 @@ package com.example.user.guessnumber;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.DragEvent;
@@ -15,8 +16,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
+
+import com.example.user.guessnumber.dummy.modle.KeyCollectiot;
 
 public class GuessFragment extends Fragment {
 
@@ -24,19 +29,25 @@ public class GuessFragment extends Fragment {
     private TextView input;
     private ImageButton imageButtonBack,imageButtonInput;
     private TextView tv0,tv1,tv2,tv3,tv4,tv5,tv6,tv7,tv8,tv9;
+    private SharedPreferences prefs;
     private ListView lv;
     private ArrayList<String> items;
     private ArrayAdapter<String> adeptet;
 
-    public static int inputSize = 4;
-    public static boolean same_digit = false;
+    public static int inputSize;
+    public static boolean same_digit;
     public static ArrayList<Integer> answer;
-    private String xAxB;
-    private int tmp;
+//    private String xAxB;
+//    private int tmp;
+
+    private boolean is_NewGame = false;
 
     public static GuessFragment newInstance(int index){
+        // index == 0 mean new game
         GuessFragment guessFragment = new GuessFragment();
-        if (index==0) random(same_digit);
+        if (index == 0){
+            guessFragment.is_NewGame = true;
+        }
 
         return guessFragment;
     }
@@ -45,11 +56,20 @@ public class GuessFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_guess, container, false);
-
+        prefs = getActivity().getPreferences(1);
+//        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         myfindViewById();
+
+        // init input Hint
+        inputSize = prefs.getInt(KeyCollectiot.KEY_INPUT_SIZE,4);
+        same_digit= prefs.getBoolean(KeyCollectiot.KEY_MODES_DIFFERENT,false);
+
         input.setText("");
         if(!same_digit) input.setHint(getString(R.string.Input_hint_input) + inputSize + getString(R.string.Input_hint_different));
         else  input.setHint(getString(R.string.Input_hint_input) + inputSize + getString(R.string.Input_hint_digits));
+
+        if (is_NewGame) random(inputSize,same_digit);
+
         // for ListView
         items = new ArrayList<String>();
         adeptet = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,items);//or  getActivity()
@@ -66,19 +86,19 @@ public class GuessFragment extends Fragment {
                 .commit();
     }
 
-    public static void random(boolean sameDigit) {
+    public static void random(int size, boolean sameDigit) {
         int tmp;
         ArrayList<Integer> randomList = new ArrayList<>();
 
         if (!sameDigit){
-            for (int i = 0; i < inputSize; i++) {
+            for (int i = 0; i < size; i++) {
                 do {
                     tmp = (int) (Math.random() * 10);
                 } while (randomList.contains(tmp));
                 randomList.add(tmp);
             }
         }else {
-            for (int i = 0; i < inputSize; i++) {
+            for (int i = 0; i < size; i++) {
                 tmp = (int) (Math.random() * 10);
                 randomList.add(tmp);
             }
@@ -87,7 +107,23 @@ public class GuessFragment extends Fragment {
     }
 
     private String match(){
-        int a = 0,b = 0,tmpi;
+        int a = 0,b = 0,tmpI;
+        int[] ans_num = new int[10],guess_num = new int[10];
+        for (int i = 0; i < inputSize; i++){
+            tmpI = Integer.parseInt(input.getText().toString().substring(i, i + 1));
+            ans_num[answer.get(i)]++;
+            guess_num[tmpI]++;
+            if (tmpI == answer.get(i)) {
+                ++a;
+                --b;
+            }
+        }
+        for (int i = 0; i < 10 ;i++){
+            if (ans_num[i] != 0 && guess_num[i] != 0){
+                b += Math.min(ans_num[i],guess_num[i]);
+            }
+        }
+        /*
         ArrayList<Integer> guessList= new ArrayList<Integer>(),indexOfMachedNum = new ArrayList<Integer>();
         for (int i = 0; i < inputSize; i++){
             tmpi = Integer.parseInt(input.getText().toString().substring(i, i + 1));
@@ -109,9 +145,10 @@ public class GuessFragment extends Fragment {
             }
         }
 
-        xAxB = a + "A" + b + "B";
+        xAxB = a + "A" + b + "B";*/
         return a + "A" + b + "B" ;
     }
+
     public static Boolean isNumbers(String tmpS){
         String tmp;
         for (int i = 0; i < inputSize; i++) {
@@ -133,14 +170,14 @@ public class GuessFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.imageButtonBack:
-                    tmp = input.getText().toString().length();
-                    if (tmp > 0) input.setText(input.getText().toString().substring(0, tmp - 1));
+                    int length = input.getText().toString().length();
+                    if (length > 0) input.setText(input.getText().toString().substring(0, length - 1));
 
                     break;
                 case R.id.imageButtonInput:
                     String tmpS = input.getText().toString();
                     if (isMatch(tmpS)) {
-                        xAxB = match();
+                        String xAxB = match();
                         items.add(input.getText().toString() + "  ...  " + xAxB);
                         input.setText("");
                         lv.setAdapter(adeptet);
